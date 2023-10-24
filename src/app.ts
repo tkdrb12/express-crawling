@@ -5,6 +5,8 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
 import indexRouter from './routes/index';
+import reposRouter from './routes/api/github/repos';
+import pullsRouter from './routes/api/github/pulls';
 
 const app: Express = express();
 
@@ -19,6 +21,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/api/github', reposRouter);
+app.use('/api/github', pullsRouter);
+
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: NextFunction) => {
   next(createError(404));
