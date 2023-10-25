@@ -3,6 +3,7 @@ import express, { Request, Response, Express, NextFunction } from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
+import cors from 'cors';
 
 import indexRouter from './routes/index';
 import reposRouter from './routes/api/github/repos';
@@ -19,6 +20,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(
+  cors({
+    origin: true,
+  })
+);
 
 app.use('/', indexRouter);
 app.use('/api/github', reposRouter);

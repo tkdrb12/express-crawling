@@ -8,6 +8,7 @@ const express_1 = __importDefault(require("express"));
 const path_1 = __importDefault(require("path"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const morgan_1 = __importDefault(require("morgan"));
+const cors_1 = __importDefault(require("cors"));
 const index_1 = __importDefault(require("./routes/index"));
 const repos_1 = __importDefault(require("./routes/api/github/repos"));
 const pulls_1 = __importDefault(require("./routes/api/github/pulls"));
@@ -20,6 +21,9 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.static(path_1.default.join(__dirname, 'public')));
+app.use((0, cors_1.default)({
+    origin: true,
+}));
 app.use('/', index_1.default);
 app.use('/api/github', repos_1.default);
 app.use('/api/github', pulls_1.default);
